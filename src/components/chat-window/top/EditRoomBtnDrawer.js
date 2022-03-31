@@ -1,14 +1,16 @@
 import React, { memo } from 'react';
-import { Button, Drawer, Alert } from 'rsuite';
-import { useParams } from 'react-router';
-import { useModalState, useMediaQuery } from '../../../misc/custom-hooks';
-import EditableInput from '../../EditableInput';
+import { useParams } from 'react-router-dom';
+import { Alert, Button, Drawer } from 'rsuite';
 import { useCurrentRoom } from '../../../context/current-room.context';
+import { useModalState, useMediaQuery } from '../../../misc/custom-hooks';
 import { database } from '../../../misc/firebase';
+import EditableInput from '../../EditableInput';
 
 function EditRoomBtnDrawer() {
   const { isOpen, open, close } = useModalState();
+
   const { chatId } = useParams();
+
   const isMobile = useMediaQuery('(max-width: 992px)');
 
   const name = useCurrentRoom(v => v.name);
@@ -26,7 +28,6 @@ function EditRoomBtnDrawer() {
         Alert.error(err.message, 4000);
       });
   };
-
   const onNameSave = newName => {
     updateData('name', newName);
   };
@@ -45,19 +46,21 @@ function EditRoomBtnDrawer() {
         <Drawer.Header>
           <Drawer.Title>Edit Room</Drawer.Title>
         </Drawer.Header>
+
         <Drawer.Body>
           <EditableInput
             initialValue={name}
             onSave={onNameSave}
             label={<h6 className="mb-2">Name</h6>}
-            emptyMsg="Name can not be empty"
+            emptyMsg="Name can't be empty"
           />
+
           <EditableInput
             componentClass="textarea"
             rows={5}
             initialValue={description}
             onSave={onDescriptionSave}
-            emptyMsg="Description can not be empty"
+            emptyMsg="Description can't be empty"
             wrapperClassName="mt-3"
           />
         </Drawer.Body>
