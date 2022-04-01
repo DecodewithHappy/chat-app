@@ -47,7 +47,7 @@ import {
         const newRoomdata = {
           ...formValue,
           createdAt: firebase.database.ServerValue.TIMESTAMP,
-          admins: {
+          admin: {
             [auth.currentUser.uid]: true,
           },
         };
