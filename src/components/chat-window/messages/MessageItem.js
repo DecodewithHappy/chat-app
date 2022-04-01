@@ -7,6 +7,7 @@ import PresenceDot from '../../PresenceDot';
 import { useCurrentRoom } from '../../../context/current-room.context';
 import { auth } from '../../../misc/firebase';
 import { useHover } from '../../../misc/custom-hooks';
+import IconBtnControl from './IconBtnControl';
 
 function MessageItem({ message, handleAdmin }) {
   const { author, createdAt, text } = message;
@@ -40,16 +41,25 @@ function MessageItem({ message, handleAdmin }) {
           appearance="link"
           className="p-0 ml-1 text-black"
         >
-          {canGrantAdmin && 
-          <Button block onClick={() => handleAdmin(author.uid)} color="blue" >
-            {isMsgAuthorAdmin ? 'Remove admin permission' : 'Give admin in this room'}
-          </Button>
+          {canGrantAdmin &&
+            <Button block onClick={() => handleAdmin(author.uid)} color="blue" >
+              {isMsgAuthorAdmin ? 'Remove admin permission' : 'Give admin in this room'}
+            </Button>
           }
 
         </ProfileInfoBtnModal>
         <TimeAgo
           datetime={createdAt}
           className="font-normal text-black-45 ml-2"
+        />
+
+        <IconBtnControl
+          {...(true ? { color: 'red' } : {})}
+          isVisible
+          iconName="heart"
+          tooltip="Like this message"
+          onClick={() => { }}
+          badgeContent={5}
         />
       </div>
 
